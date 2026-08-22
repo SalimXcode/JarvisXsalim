@@ -3,7 +3,5 @@ groq
 agno
 ddgs
 requests
-edge-tts
+Pillow
 beautifulsoup4
-pillow
-pygame

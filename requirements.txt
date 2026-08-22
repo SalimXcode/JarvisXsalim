@@ -1,8 +1,9 @@
-
 streamlit
 groq
+agno
+ddgs
 requests
-langchain
-langchain-groq
-langchain-classic
-langchain-core
+edge-tts
+beautifulsoup4
+pillow
+pygame

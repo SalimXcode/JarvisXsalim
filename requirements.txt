@@ -1,4 +1,4 @@
-streamlit
+streamlit>=1.28.0
 groq
 agno
 ddgs
@@ -6,4 +6,3 @@ requests
 Pillow
 beautifulsoup4
 edge-tts
-pygame

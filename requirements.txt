@@ -6,3 +6,4 @@ requests
 Pillow
 beautifulsoup4
 edge-tts
+pygame

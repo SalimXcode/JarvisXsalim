@@ -3,14 +3,14 @@ import time
 from datetime import datetime
 from style import get_css
 from config import APP_NAME, VERSION
-from utils import get_timestamp, speak
+from utils import get_timestamp, simulate_typing
 from agent import stream_agent_reply, reset_memory
 from image_gen import generate_image, AVAILABLE_MODELS
 
 st.set_page_config(page_title=APP_NAME, page_icon="🤖", layout="wide", initial_sidebar_state="collapsed")
 st.markdown(get_css(), unsafe_allow_html=True)
 
-# 3D perspective grid floor
+# 3D grid
 st.markdown('<div class="tech-grid-floor"></div>', unsafe_allow_html=True)
 
 # Sidebar
@@ -20,7 +20,6 @@ with st.sidebar:
         'border-bottom:1px solid rgba(0,212,255,0.1);">⚙️ CONTROLS</div>',
         unsafe_allow_html=True,
     )
-    voice_enabled = st.toggle("🔊 Voice Output", value=True, key="voice_enabled")
     st.markdown("---")
     if st.button("🗑️ CLEAR CHAT", use_container_width=True):
         st.session_state.messages = [{"role": "assistant", "content": "🟢 Chat cleared. Ready."}]
@@ -29,7 +28,7 @@ with st.sidebar:
     st.caption(f"🟢 Online • {get_timestamp()}")
     st.caption(f"⚡ {VERSION}")
 
-# Hero Section
+# Hero
 hero_col1, hero_col2, hero_col3 = st.columns([1, 2, 1])
 with hero_col2:
     st.markdown('<div class="ai-core-wrap"><div class="ai-core"></div></div>', unsafe_allow_html=True)
@@ -41,12 +40,9 @@ with hero_col2:
         unsafe_allow_html=True,
     )
 
-# Tabs
 tab1, tab2, tab3 = st.tabs(["🤖 CHAT", "🎨 IMAGE GEN", "📁 PORTFOLIO"])
 
-# ============================================
-# TAB 1: CHAT
-# ============================================
+# ===== TAB 1: CHAT =====
 with tab1:
     if "messages" not in st.session_state:
         st.session_state.messages = [
@@ -65,13 +61,9 @@ with tab1:
             placeholder = st.empty()
             with st.spinner("⚡ Thinking..."):
                 response = stream_agent_reply(prompt, placeholder)
-            if st.session_state.get("voice_enabled", True):
-                speak(response)
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-# ============================================
-# TAB 2: IMAGE GEN
-# ============================================
+# ===== TAB 2: IMAGE GEN =====
 with tab2:
     st.markdown(
         '<h3 style="color:#00d4ff;font-family:Orbitron;letter-spacing:2px;">🎨 AI Image Generator</h3>'
@@ -122,9 +114,7 @@ with tab2:
             unsafe_allow_html=True,
         )
 
-# ============================================
-# TAB 3: PORTFOLIO
-# ============================================
+# ===== TAB 3: PORTFOLIO =====
 with tab3:
     st.markdown(
         '<h3 style="color:#00d4ff;font-family:Orbitron;letter-spacing:2px;">📁 Portfolio</h3>'
@@ -151,9 +141,7 @@ with tab3:
             unsafe_allow_html=True,
         )
 
-# ============================================
-# FOOTER
-# ============================================
+# ===== FOOTER =====
 st.markdown(
     f'<div style="position:fixed;bottom:0;left:0;right:0;text-align:center;padding:10px;'
     f'background:rgba(5,5,15,0.85);backdrop-filter:blur(10px);'
